@@ -1,8 +1,25 @@
 ---
-// Componente de formulario de contacto
+
+export interface Props {
+  class?: string;
+  isModal?: boolean;
+}
+
+// Extraer las props con valores por defecto
+const { 
+  class: className = '',
+  isModal = false,
+} = Astro.props;
 ---
 
-<div class="bg-black/60 backdrop-blur-sm w-[400px] rounded-lg px-6 py-10 shadow-lg text-white ml-40">
+<div class={`bg-black/60 backdrop-blur-sm w-[400px] rounded-lg px-6 py-10 shadow-lg text-white relative ${className} ${isModal ? 'pt-8 sm:pt-14' : ''}`} data-is-modal={isModal}>
+	<div class={`absolute top-3 sm:right-3 right-2 ${!isModal ? 'hidden' : ''}`}>
+		<button id="closeModal" class="text-white cursor-pointer hover:text-gray-300 transition-colors">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+			</svg>
+		</button>
+	</div>
 	<div class="text-3xl font-medium  w-full p-3 rounded-lg bg-black text-white text-center mb-4">
 		¡Hazte cliente!
 	</div>
@@ -42,26 +59,4 @@
 	<p class="text-center  text-sm">o llámanos al <a href="tel:987654321" class="text-[#009FFF] font-semibold hover:underline">904070432</a></p>
 </div>
 
-<script>
-	// Manejo del formulario
-	document.addEventListener('DOMContentLoaded', function() {
-		const form = document.getElementById('contactForm') as HTMLFormElement;
-		
-		if (form) {
-			form.addEventListener('submit', function(e) {
-				e.preventDefault();
-				
-				const formData = new FormData(form);
-				const name = formData.get('name');
-				const phone = formData.get('phone');
-				
-				// Aquí puedes agregar la lógica para enviar los datos
-				console.log('Datos del formulario:', { name, phone });
-				
-				// Mostrar mensaje de éxito
-				alert('¡Gracias por tu interés! Te contactaremos pronto.');
-				form.reset();
-			});
-		}
-	});
-</script>
+<!-- Script removido - ahora se maneja desde PromotionalBanner -->

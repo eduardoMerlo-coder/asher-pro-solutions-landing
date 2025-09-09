@@ -1,16 +1,17 @@
 ---
 import { Image } from 'astro:assets';
+import ContactForm from './ContactForm.astro';
 import robot from '../../public/images/robot.jpg'
 ---
 
 <section class="w-full bg-[#000] ">
-  <div class="container mx-auto px-16 max-w-7xl">
+  <div class="container mx-auto px-6 sm:px-16 max-w-7xl max-sm:py-12">
     <div class="text-white rounded-2xl  shadow-lg">
-      <div class="grid grid-cols-1 lg:grid-cols-4  items-center">
+      <div class="grid grid-cols-1 md:grid-cols-4  items-center sm:gap-1 gap-6">
         
         <!-- Left Side - Call to Action Button -->
         <div class="flex justify-center  col-span-1">
-          <button class="bg-[#e21414] hover:bg-[#e21414bd] text-white font-bold py-4 px-8 rounded-xl text-lg transition-colors shadow-lg cursor-pointer">
+          <button id="openModal" class="bg-[#e21414] hover:bg-[#e21414bd] text-white font-bold py-4 px-8 rounded-xl text-lg transition-colors shadow-lg cursor-pointer">
             Cotiza gratis
           </button>
         </div>
@@ -35,3 +36,70 @@ import robot from '../../public/images/robot.jpg'
     </div>
   </div>
 </section>
+
+<!-- Modal oculto por defecto -->
+<div id="modalContainer" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-lg">
+  <ContactForm isModal={true} />
+</div>
+
+<script>
+  // Manejo completo del modal
+  document.addEventListener('DOMContentLoaded', function() {
+    const openButton = document.getElementById('openModal');
+    const modalContainer = document.getElementById('modalContainer');
+    
+    console.log('Elementos encontrados:', { openButton, modalContainer });
+    
+    // Abrir modal
+    if (openButton && modalContainer) {
+      openButton.addEventListener('click', function() {
+        console.log('Abriendo modal...');
+        modalContainer.classList.remove('hidden');
+      });
+    }
+    
+    // Cerrar modal al hacer clic fuera
+    if (modalContainer) {
+      modalContainer.addEventListener('click', function(e) {
+        if (e.target === modalContainer) {
+          console.log('Cerrando modal con clic fuera...');
+          modalContainer.classList.add('hidden');
+        }
+      });
+    }
+  });
+  
+  // Event delegation para elementos dinámicos
+  document.addEventListener('click', function(e) {
+    // Cerrar modal con la X
+    if (e.target && e.target.id === 'closeModal') {
+      e.preventDefault();
+      console.log('Cerrando modal con X...');
+      const modalContainer = document.getElementById('modalContainer');
+      if (modalContainer) {
+        modalContainer.classList.add('hidden');
+      }
+    }
+  });
+  
+  // Manejar el formulario
+  document.addEventListener('submit', function(e) {
+    if (e.target && e.target.id === 'contactForm') {
+      e.preventDefault();
+      
+      const form = e.target;
+      const formData = new FormData(form);
+      const name = formData.get('name');
+      const phone = formData.get('phone');
+      
+      console.log('Datos del formulario:', { name, phone });
+      alert('¡Gracias por tu interés! Te contactaremos pronto.');
+      form.reset();
+      
+      const modalContainer = document.getElementById('modalContainer');
+      if (modalContainer) {
+        modalContainer.classList.add('hidden');
+      }
+    }
+  });
+</script>
