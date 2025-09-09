@@ -1,0 +1,57 @@
+---
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content="AsherPro Solutions - La protección que tu hogar necesita. Sistemas de seguridad avanzados para proteger lo que más importa." />
+		<title>AsherPro Solutions S.A.C. - Seguridad para tu Hogar</title>
+	</head>
+	<body>
+		<main>
+			<slot />
+		</main>
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		overflow-x: hidden;
+		background-color: #f6f6f6;
+		font-family: "Poppins", sans-serif;
+		line-height: 1.6;
+	}
+	
+	/* Aplicar Poppins a todos los elementos */
+	* {
+		font-family: "Poppins", sans-serif;
+		box-sizing: border-box;
+	}
+
+	/* Mejorar la accesibilidad del foco */
+	*:focus {
+		outline: 2px solid #eb0206;
+		outline-offset: 2px;
+	}
+
+	/* Mejorar el scroll suave */
+	html {
+		scroll-behavior: smooth;
+	}
+
+	/* Asegurar que las imágenes sean responsivas */
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+</style>

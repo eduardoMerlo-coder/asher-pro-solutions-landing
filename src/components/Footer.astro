@@ -1,0 +1,35 @@
+---
+// Footer component for Verisure
+import { Image } from 'astro:assets';
+import logo from '../../public/images/logo.png';
+---
+
+<footer class="w-full bg-white py-8">
+  <div class="container mx-auto px-16">
+    <div class="text-center text-sm text-gray-600 space-y-2">
+      <!-- Disclaimer sobre descuentos y ofertas -->
+      <p class="text-[10px]">
+        *Descuentos y ofertas sujetos a disponibilidad y condiciones específicas del servicio.
+      </p>
+      
+      <!-- Nota sobre estudio de mercado -->
+      <p class="text-[10px]">
+        **Conclusiones del estudio de mercado: 4-13 de octubre de 2021 y 26 de octubre - 4 de noviembre de 2021.
+      </p>
+      
+      <!-- Copyright y logo -->
+      <div class="flex items-center justify-center gap-2 mt-4">
+        <span>Asher Pro Solutions Perú 2025</span>
+        <div class="w-4 h-4  rounded-full flex items-center justify-center">
+          <Image src={logo} alt="Logo Asher Pro Solutions" class="w-4 h-4" densities={[1,2]} />
+        </div>
+      </div>
+
+      <p class="mt-2">
+        <a href="/politica-privacidad" class="text-[#eb0206] hover:underline">
+          Política de privacidad*
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>

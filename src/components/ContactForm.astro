@@ -1,0 +1,67 @@
+---
+// Componente de formulario de contacto
+---
+
+<div class="bg-black/60 backdrop-blur-sm w-[400px] rounded-lg px-6 py-10 shadow-lg text-white ml-40">
+	<div class="text-3xl font-medium  w-full p-3 rounded-lg bg-black text-white text-center mb-4">
+		¡Hazte cliente!
+	</div>
+	<p class="font-semibold text-center mb-4">Te llamamos gratis</p>
+	
+	<form class="space-y-4 border-t-3 border-[#7f7f7f] py-4" id="contactForm">
+		<div>
+			<label for="name" class="block text-sm font-semibold mb-1">Nombre</label>
+			<input 
+				type="text" 
+				id="name"
+				name="name" 
+				class="w-full p-3 rounded-md bg-white outline-none text-sm border border-gray-200 focus:border-[#7f7f7f] transition-colors text-black"
+				required
+				placeholder="Ingresa tu nombre completo"
+			/>
+		</div>
+		
+		<div>
+			<label for="phone" class="block text-sm font-semibold mb-1">Número de celular</label>
+			<input 
+				type="tel" 
+				id="phone"
+				name="phone" 
+				class="w-full p-3 rounded-md bg-white outline-none text-sm border border-gray-200 focus:border-[#7f7f7f] transition-colors text-black"
+				required
+				placeholder="Ej: 987654321"
+				pattern="[0-9]{9}"
+			/>
+		</div>
+		
+		<button type="submit" class="w-full text-md font-bold bg-[#e21414] hover:bg-[#e21414bd] py-3 px-8 rounded-lg transition-colors cursor-pointer mt-2">
+			¡Te llamamos ahora!
+		</button>
+	</form>
+	
+	<p class="text-center  text-sm">o llámanos al <a href="tel:987654321" class="text-[#009FFF] font-semibold hover:underline">904070432</a></p>
+</div>
+
+<script>
+	// Manejo del formulario
+	document.addEventListener('DOMContentLoaded', function() {
+		const form = document.getElementById('contactForm') as HTMLFormElement;
+		
+		if (form) {
+			form.addEventListener('submit', function(e) {
+				e.preventDefault();
+				
+				const formData = new FormData(form);
+				const name = formData.get('name');
+				const phone = formData.get('phone');
+				
+				// Aquí puedes agregar la lógica para enviar los datos
+				console.log('Datos del formulario:', { name, phone });
+				
+				// Mostrar mensaje de éxito
+				alert('¡Gracias por tu interés! Te contactaremos pronto.');
+				form.reset();
+			});
+		}
+	});
+</script>

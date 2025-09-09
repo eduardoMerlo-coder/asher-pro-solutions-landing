@@ -1,0 +1,161 @@
+---
+import { Image } from 'astro:assets';
+import attention from '../../public/images/attention.jpg';
+import smartHome from '../../public/images/category/smart-home.jpg';
+import videoSurveillance from '../../public/images/category/video-surveillance.jpg';
+import motionSensor from '../../public/images/category/motion-sensor.jpg';
+import doorSensor from '../../public/images/category/door-sensor.jpg';
+import panic from '../../public/images/category/panic.jpg';
+import appMonitoring from '../../public/images/category/monitoring-app.jpg';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+const items = [
+  {
+    title: 'Alarma y casa inteligente',
+    description:
+      'Incluye panel central, sensores de movimiento, sensores de puertas/ventanas, sirena y controles remotos. Ideal para hogares y negocios.',
+    image: smartHome,
+  },
+  {
+    title: 'Video Vigilancia',
+    description:
+      'Permite monitorear tu propiedad en tiempo real desde tu celular. Hay opciones con visión nocturna, grabación en nube y audio bidireccional.',
+    image: videoSurveillance,
+  },
+  {
+    title: 'Sensor de Movimiento',
+    description:
+      'Detecta presencia en áreas protegidas y activa la alarma si se detecta actividad sospechosa. Disponible en versiones para interiores y exteriores.',
+    image: motionSensor,
+  },
+  {
+    title: 'Sensor de Puerta/Ventana',
+    description:
+      'Detecta la apertura de accesos no autorizados. Ideal para entradas, ventanas o vitrinas.',
+    image: doorSensor,
+  },
+  {
+    title: 'Botón de Pánico',
+    description:
+      'Permite activar la alarma de forma silenciosa en caso de emergencia. Puede ubicarse en lugares estratégicos o llevarse como accesorio.',
+    image: panic,
+  },
+  {
+    title: 'App de Monitoreo',
+    description:
+      'Aplicación móvil que te permite visualizar cámaras, recibir alertas y controlar la alarma desde cualquier lugar.',
+    image: appMonitoring,
+  },
+];
+---
+
+<style>
+  .swiper {
+    width: 100%;
+    padding: 0;
+  }
+
+  .swiper-slide {
+    height: auto;
+    text-align: left;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #eb0206;
+    background: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+
+  .swiper-pagination-bullet-active {
+    background: #000 !important;
+  }
+</style>
+
+<section class="w-full py-20 bg-white">
+  <div class="container mx-auto px-16">
+    <h2 class="text-center text-4xl font-bold text-gray-900 leading-tight">
+      Protección inteligente, diseñada para tu hogar.
+    </h2>
+
+    <p class="text-center text-xl text-gray-600 mt-4 max-w-3xl mx-auto leading-relaxed">
+      Soluciones de seguridad completas para proteger tu hogar y negocio con la máxima confiabilidad.
+    </p>
+
+    <div class="swiper mySwiper mt-12">
+      <div class="swiper-wrapper">
+        {items.map((item) => (
+          <div class="swiper-slide">
+            <article class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full">
+              <div class="p-6">
+                <div class="bg-gray-50 rounded-2xl flex items-center justify-center h-[260px]">
+                  <Image src={item.image} alt={item.title} class="h-full w-full object-cover" densities={[1,2]} />
+                </div>
+                <h3 class="mt-6 text-2xl font-semibold text-gray-900">{item.title}</h3>
+                <p class="mt-2 text-gray-600 leading-relaxed text-sm">{item.description}</p>
+              </div>
+            </article>
+          </div>
+        ))}
+      </div>
+      
+      <!-- Navigation buttons -->
+      <div class="swiper-button-next max-sm:!hidden"></div>
+      <div class="swiper-button-prev max-sm:!hidden"></div>
+    </div>
+
+  </div>
+
+  <script>
+    import Swiper from 'swiper';
+    import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const swiper = new Swiper(".mySwiper", {
+        modules: [Navigation, Pagination, Autoplay],
+        slidesPerView: 1,
+        spaceBetween: 30,
+        freeMode: true,
+        loop: true, 
+        autoplay: {
+          delay: 2000, 
+          disableOnInteraction: false, 
+          pauseOnMouseEnter: true,           
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,          
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+          640: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          1024: {
+            slidesPerView: 4,
+          },
+        },
+      });
+    });
+  </script>
+</section>
+
+

@@ -1,0 +1,33 @@
+---
+import {Image} from 'astro:assets';
+import ContactForm from './ContactForm.astro';
+import textLogo from '../../public/images/text-logo.webp'
+---
+<section class="relative w-full h-screen overflow-hidden">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0  z-50 px-16 py-4 bg-white h-24">
+        <Image src={textLogo} alt="Logo Asher Pro" width={textLogo.width / 4}
+        densities={[1.5, 2]}/>
+    </header>
+
+    <div class="h-4/5 mt-24 relative overflow-hidden flex items-center justify-center group">
+        <!-- Background Image with Hover Effect -->
+        <div class="absolute inset-0 bg-[url(/images/main.jpg)] bg-cover bg-center bg-no-repeat transition-transform duration-700 ease-out group-hover:scale-110"></div>
+        <!-- Content Overlay -->
+        <div class="relative z-10 w-4/5">
+            <div class="grid grid-cols-2 gap-20 items-center">
+                <div class="flex flex-col gap-4">
+                    <div class="text-white text-[50px] leading-tight">
+                    <span class="font-bold">Protección inteligente </span> para tu hogar, con la mejor alarma.
+                    </div>
+                    <div class="flex gap-4 font-bold text-lg">
+                        <div class="bg-[#e21414] text-white p-3 rounded-md max-w-[300px]">Instalación y alta de servicios sin costo</div>
+                        <div class="bg-white p-3 rounded-md w-32 leading-5">¡SOLO POR TIEMPO LIMITADO!</div>
+                    </div>
+                    <p class="text-white text-xl font-semibold">IGV. Incluido.</p>
+                </div>	 
+                <ContactForm />
+            </div>
+        </div>
+    </div>		
+</section>

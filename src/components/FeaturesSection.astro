@@ -1,0 +1,41 @@
+---
+import { Image } from "astro:assets";
+import security from '../../public/images/security.jpg'
+import homeTech from '../../public/images/home-tech.jpg'
+import attention from '../../public/images/attention.jpg'
+---
+
+<section class="w-full container mx-auto px-16 mb-24">
+		<div class="max-w-5xl mx-auto text-center">
+			<h2 class="text-4xl font-bold text-gray-800 mb-6">
+				¿Buscas un sistema de alarmas inteligente?
+			</h2>
+			<p class="text-xl text-gray-600 mb-12 leading-relaxed">
+				Protege tu hogar con la última tecnología en seguridad. Monitorea en tiempo real, recibe alertas inmediatas y mantén la tranquilidad de tu familia en todo momento.
+			</p>
+			
+			<div class="grid md:grid-cols-3 gap-8 mt-16">				
+				<article class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+					<Image src={security} alt="Imagen de fondo - Hogar seguro" class="w-full h-[200px] object-cover rounded-lg"
+			densities={[1, 2]}/>
+					<h3 class="text-xl font-semibold my-3">Seguridad 24/7</h3>
+					<p class="text-gray-600 text-sm">Monitoreo continuo de tu hogar con respuesta inmediata ante cualquier emergencia.</p>
+				</article>
+				
+				<article class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+					<Image src={homeTech} alt="Imagen de fondo - Hogar seguro" class="w-full h-[200px] object-cover rounded-lg"
+			densities={[1, 2]}/>
+					<h3 class="text-xl font-semibold my-3">Tecnología Avanzada</h3>
+					<p class="text-gray-600 text-sm">Sistemas inteligentes con IA para detectar y prevenir amenazas antes de que ocurran.</p>
+				</article>
+				
+				<article class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+					<Image src={attention} alt="Imagen de fondo - Hogar seguro" class="w-full h-[200px] object-cover rounded-lg"
+			densities={[1, 2]}/>
+					<h3 class="text-xl font-semibold my-3">Atención Personalizada</h3>
+					<p class="text-gray-600 text-sm">Equipo especializado disponible para resolver cualquier consulta o emergencia.</p>
+				</article>
+			</div>
+		</div>
+	
+</section>
