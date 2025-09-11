@@ -10,6 +10,7 @@ const {
   class: className = '',
   isModal = false,
 } = Astro.props;
+const apiUrl = import.meta.env.GOOGLE_SHEETS_API_URL || 'https://v1.nocodeapi.com/eduardo1931/google_sheets/vnDyJsQKMMtBvhwM';
 ---
 
 <div class={`bg-black/60 backdrop-blur-sm w-[400px] rounded-lg px-6 py-10 shadow-lg text-white relative ${className} ${isModal ? 'pt-8 sm:pt-14' : ''}`} data-is-modal={isModal}>
@@ -25,7 +26,7 @@ const {
 	</div>
 	<p class="font-semibold text-center mb-4">Te llamamos gratis</p>
 	
-	<form class="space-y-4 border-t-3 border-[#7f7f7f] py-4" id="contactForm">
+	<form data-contact-form class="space-y-4 border-t-3 border-[#7f7f7f] py-4">
 		<div>
 			<label for="name" class="block text-sm font-semibold mb-1">Nombre</label>
 			<input 
@@ -46,6 +47,7 @@ const {
 				name="phone" 
 				class="w-full p-3 rounded-md bg-white outline-none text-sm border border-gray-200 focus:border-[#7f7f7f] transition-colors text-black"
 				required
+				minlength="9"
 				placeholder="Ej: 987654321"
 				pattern="[0-9]{9}"
 			/>
@@ -59,4 +61,81 @@ const {
 	<p class="text-center  text-sm">o llámanos al <a href="tel:987654321" class="text-[#009FFF] font-semibold hover:underline">904070432</a></p>
 </div>
 
-<!-- Script removido - ahora se maneja desde PromotionalBanner -->
+<script define:vars={{ apiUrl }}>
+	const contactForms = document.querySelectorAll('[data-contact-form]');
+	let statusHideTid = null;
+
+	contactForms.forEach(contactForm => {
+		contactForm.addEventListener('submit', async (e) => {
+		e.preventDefault();
+
+		const form = contactForm;
+		const submitButton = form.querySelector('button[type="submit"]');
+
+		// Crear / obtener contenedor de estado
+		let statusEl = form.querySelector('[data-status]');
+		if (!statusEl) {
+			statusEl = document.createElement('div');
+			statusEl.setAttribute('data-status', '');
+			statusEl.setAttribute('role', 'status');
+			statusEl.setAttribute('aria-live', 'polite');
+			statusEl.className = 'text-sm mt-2 hidden';
+			form.appendChild(statusEl);
+		}
+
+		const formData = new FormData(form);
+		const name = String(formData.get('name') || '').trim();
+		const phone = String(formData.get('phone') || '').trim();
+
+		if (!name || !phone) return;
+
+		// Loading state
+		const originalBtnText = submitButton?.textContent;
+		if (submitButton) {
+			submitButton.disabled = true;
+			submitButton.textContent = 'Enviando...';
+		}
+		statusEl.textContent = '';
+
+		try { 
+		const response = await fetch(apiUrl, {
+				 method: 'POST',
+				 headers: {
+					 'Content-Type': 'application/json',
+				 },				
+				 body: JSON.stringify([[name, phone, new Date().toISOString()]]),
+			 });			 
+
+			if (!response.ok) throw new Error('Error al enviar el formulario');
+
+
+			// Éxito: reset y mensaje
+			form.reset();
+			statusEl.textContent = '¡Gracias! Te contactaremos en breve.';
+			statusEl.classList.remove('hidden', 'text-red-400');
+			statusEl.classList.add('text-green-400', 'text-center');
+			if (statusHideTid) {
+				clearTimeout(statusHideTid);
+				statusHideTid = null;
+			}
+			statusHideTid = window.setTimeout(() => {
+				statusEl?.classList.add('hidden');
+			}, 2500);
+			
+		} catch (err) {
+			statusEl.textContent = 'Hubo un problema al enviar. Intenta nuevamente.';
+			statusEl.classList.remove('hidden', 'text-green-400');
+			statusEl.classList.add('text-red-400', 'text-center');
+			if (statusHideTid) {
+				clearTimeout(statusHideTid);
+				statusHideTid = null;
+			}
+		} finally {
+			if (submitButton) {
+				submitButton.disabled = false;
+				submitButton.textContent = originalBtnText || '¡Te llamamos ahora!';
+			}
+		}
+	});
+	});
+</script>

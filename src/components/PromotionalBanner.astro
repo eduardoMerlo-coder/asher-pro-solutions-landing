@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import ContactForm from './ContactForm.astro';
 import robot from '../../public/images/robot.jpg'
 ---
 
@@ -29,77 +28,9 @@ import robot from '../../public/images/robot.jpg'
         <!-- Right Side - Visual Elements & Branding -->
         <div class="flex flex-col items-center lg:items-end space-y-6">
           <Image src={robot} alt="Logo Robot" width={robot.width / 2}
-          densities={[1.5, 2]}/>
-          
+          densities={[1.5, 2]} loading="lazy" decoding='async'/>          
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- Modal oculto por defecto -->
-<div id="modalContainer" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-lg">
-  <ContactForm isModal={true} />
-</div>
-
-<script>
-  // Manejo completo del modal
-  document.addEventListener('DOMContentLoaded', function() {
-    const openButton = document.getElementById('openModal');
-    const modalContainer = document.getElementById('modalContainer');
-    
-    console.log('Elementos encontrados:', { openButton, modalContainer });
-    
-    // Abrir modal
-    if (openButton && modalContainer) {
-      openButton.addEventListener('click', function() {
-        console.log('Abriendo modal...');
-        modalContainer.classList.remove('hidden');
-      });
-    }
-    
-    // Cerrar modal al hacer clic fuera
-    if (modalContainer) {
-      modalContainer.addEventListener('click', function(e) {
-        if (e.target === modalContainer) {
-          console.log('Cerrando modal con clic fuera...');
-          modalContainer.classList.add('hidden');
-        }
-      });
-    }
-  });
-  
-  // Event delegation para elementos dinámicos
-  document.addEventListener('click', function(e) {
-    // Cerrar modal con la X
-    if (e.target && e.target.id === 'closeModal') {
-      e.preventDefault();
-      console.log('Cerrando modal con X...');
-      const modalContainer = document.getElementById('modalContainer');
-      if (modalContainer) {
-        modalContainer.classList.add('hidden');
-      }
-    }
-  });
-  
-  // Manejar el formulario
-  document.addEventListener('submit', function(e) {
-    if (e.target && e.target.id === 'contactForm') {
-      e.preventDefault();
-      
-      const form = e.target;
-      const formData = new FormData(form);
-      const name = formData.get('name');
-      const phone = formData.get('phone');
-      
-      console.log('Datos del formulario:', { name, phone });
-      alert('¡Gracias por tu interés! Te contactaremos pronto.');
-      form.reset();
-      
-      const modalContainer = document.getElementById('modalContainer');
-      if (modalContainer) {
-        modalContainer.classList.add('hidden');
-      }
-    }
-  });
-</script>

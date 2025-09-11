@@ -1,12 +1,13 @@
 ---
 import {Image} from 'astro:assets';
 import textLogo from '../../public/images/text-logo.webp'
+import ContactForm from './ContactForm.astro';
 ---
 <section class="relative w-full h-screen overflow-hidden">
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0  z-50 px-16 py-4 bg-white h-24">
         <Image src={textLogo} alt="Logo Asher Pro" width={textLogo.width / 4}
-        densities={[1.5, 2]}/>
+        densities={[1.5, 2]} loading="lazy" decoding='async'/>
     </header>
 
     <div class=" h-full sm:h-4/5 mt-24 relative overflow-hidden flex items-center justify-center group">
@@ -25,6 +26,7 @@ import textLogo from '../../public/images/text-logo.webp'
                     </div>
                     <p class="text-white text-xl font-semibold">IGV. Incluido.</p>
                 </div>
+                <ContactForm class='hidden sm:block ml-40'/>
             </div>
         </div>
     </div>		

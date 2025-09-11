@@ -98,10 +98,10 @@ const items = [
       <div class="swiper-wrapper">
         {items.map((item) => (
           <div class="swiper-slide">
-            <article class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full">
-              <div class="sm:p-6">
+            <article class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full ">
+              <div class="p-4 sm:p-6">
                 <div class="bg-gray-50 rounded-2xl flex items-center justify-center h-[260px]">
-                  <Image src={item.image} alt={item.title} class="h-full w-full object-cover" densities={[1,2]} />
+                  <Image src={item.image} alt={item.title} class="h-full w-full object-cover" densities={[1,2]} loading="lazy" decoding='async'/>
                 </div>
                 <h3 class="mt-6 text-2xl font-semibold text-gray-900">{item.title}</h3>
                 <p class="mt-2 text-gray-600 leading-relaxed text-sm">{item.description}</p>

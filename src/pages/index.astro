@@ -7,6 +7,7 @@ import CategoriesSection from '../components/CategoriesSection.astro';
 import Footer from '../components/Footer.astro';
 import HomeSection from '../components/HomeSection.astro'
 import ContactForm from '../components/ContactForm.astro';
+import ContactModal from '../components/ContactModal.astro';
 ---
 
 <Layout>
@@ -22,4 +23,25 @@ import ContactForm from '../components/ContactForm.astro';
 	<CategoriesSection />
 
 	<Footer />
+	<ContactModal />
 </Layout>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const openModal = document.getElementById('openModal')
+		const modalContainer = document.getElementById('modalContainer');
+
+		openModal?.addEventListener('click', () => {
+			modalContainer?.classList.remove('hidden')
+			modalContainer?.classList.add('flex')
+		})
+		
+		modalContainer?.addEventListener('click', (event) => {
+			const target = event.target as HTMLElement;
+			if (event.target === modalContainer || target.closest('#closeModal')) {
+				modalContainer?.classList.remove('flex')
+				modalContainer?.classList.add('hidden')
+			}
+		})		
+	})
+</script>
